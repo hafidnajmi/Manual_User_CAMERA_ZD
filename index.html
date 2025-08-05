@@ -1,52 +1,97 @@
+
 <!DOCTYPE html>
 <html lang="id">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>User Manual Kamera Omron FHV7</title>
   <style>
-    body { font-family: sans-serif; background: #f9f9f9; padding: 20px; line-height: 1.6; }
-    .section { background: white; padding: 15px; margin-bottom: 20px; border-radius: 10px; box-shadow: 0 0 4px rgba(0,0,0,0.1); }
+    body { font-family: sans-serif; background: #f4f4f4; padding: 20px; line-height: 1.6; }
+    .section { background: #fff; padding: 20px; border-radius: 10px; margin-bottom: 20px; box-shadow: 0 0 5px rgba(0,0,0,0.1); }
     h1, h2 { color: #333; }
-    img { max-width: 100%; height: auto; border-radius: 8px; margin-top: 10px; }
-    a { color: blue; }
+    img { max-width: 100%; height: auto; border-radius: 8px; margin: 10px 0; }
+    a { color: #007BFF; text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    .toc { background: #e8e8e8; padding: 10px; border-radius: 8px; margin-bottom: 30px; }
+    .toc a { display: block; margin: 5px 0; }
   </style>
 </head>
 <body>
 
 <h1>User Manual Kamera Omron FHV7</h1>
 
-<div class="section">
-  <h2 id="kecepatan">1. Setting Kecepatan Kamera</h2>
+<div class="toc">
+  <h2>Daftar Isi</h2>
+  <a href="#kecepatan">1. Setting Kecepatan Kamera</a>
+  <a href="#focus">2. Setting Focus Kamera</a>
+  <a href="#cahaya">3. Setting Kecerahan Cahaya</a>
+  <a href="#mirror">4. Mirror Hasil Kamera</a>
+  <a href="#shape">5. Shape Search Setting III</a>
+  <a href="#barcode">6. Barcode Setting</a>
+  <a href="#ocr">7. OCR Setting</a>
+  <a href="#2dcode">8. 2D Code Setting</a>
+  <a href="#trend">9. Trend Monitor Setting</a>
+  <a href="#troubleshooting">10. Troubleshooting</a>
+</div>
+
+<div class="section" id="kecepatan">
+  <h2>1. Setting Kecepatan Kamera</h2>
   <p>Setting di range antara <strong>400-800</strong> (opsional). Jika masih belum bisa, maka bisa diluar range tersebut.</p>
 </div>
 
-<div class="section">
-  <h2 id="focus">2. Setting Focus Kamera</h2>
-  <p>Setting fokus kamera dapat dilakukan secara otomatis.</p>
-  <p><strong>Catatan:</strong> Jika masih kurang fokus, bisa di-adjust secara manual sampai terlihat fokus.</p>
+<div class="section" id="focus">
+  <h2>2. Setting Focus Kamera</h2>
+  <p>Setting fokus kamera dapat dilakukan secara otomatis. Jika kurang fokus, bisa di-adjust manual.</p>
 </div>
 
-<div class="section">
-  <h2 id="cahaya">3. Setting Kecerahan Cahaya</h2>
-  <p>Klik <em>Screen Adjust</em>, kemudian atur cahaya di bagian <em>Adjustment</em>.</p>
-  <p><strong>Catatan:</strong> Semakin besar angka, semakin terang cahaya. Lampu memiliki 4 sisi.</p>
+<div class="section" id="cahaya">
+  <h2>3. Setting Kecerahan Cahaya</h2>
+  <p>Klik Screen Adjust dan atur bagian Adjustment. Semakin besar angka, semakin terang cahaya.</p>
 </div>
 
-<div class="section">
-  <h2 id="mirror">4. Mirror Hasil Kamera</h2>
-  <p>Gunakan tombol panah atas & bawah untuk membalik arah vertikal, kanan & kiri untuk arah horizontal.</p>
+<div class="section" id="mirror">
+  <h2>4. Mirror Hasil Kamera</h2>
+  <p>Panah atas/bawah: membalik arah vertikal. Panah kanan/kiri: membalik arah horizontal.</p>
 </div>
 
-<div class="section">
-  <h2 id="shape">5. Shape Search Setting III</h2>
-  <p><strong>Fungsi:</strong> Menstabilkan Batch Number, mendeteksi label (ada/tidak ada).</p>
-  <p><strong>Langkah:</strong> Atur kotak Model sesuai objek, lanjut ke Region (buat kotak lebih besar), lalu Measurement. Klik "Measure".</p>
+<div class="section" id="shape">
+  <h2>5. Shape Search Setting III</h2>
+  <p>Digunakan untuk menstabilkan batch number dan mendeteksi label.</p>
+  <p>Langkah: Atur kotak Model → Region (diluar kotak model) → Measurement → Klik Measure.</p>
 </div>
 
-<div class="section">
-  <h2>🎥 Video Tutorial</h2>
-  <p><a href="https://youtu.be/link-video" target="_blank">Tonton Video Penggunaan Kamera FHV7</a></p>
+<div class="section" id="barcode">
+  <h2>6. Barcode Setting</h2>
+  <p>Klik ikon Barcode → Edit Region → Atur bentuk kotak → Apply → OK.</p>
+  <p>Lanjut ke Measurement: Teaching → Code Type = JAN/EAN/UPC → Ceklis Display of Decoded → Atur size angka.</p>
+</div>
+
+<div class="section" id="ocr">
+  <h2>7. OCR Setting</h2>
+  <p>Klik ikon OCR → Edit Region → Pilih persegi → Measurement → Teaching menggunakan simbol # (angka) dan $ (huruf).</p>
+  <p>Masuk ke Judge Condition → ceklis OCV → lanjut Dictionary Setting & Regist.</p>
+</div>
+
+<div class="section" id="2dcode">
+  <h2>8. 2D Code Setting</h2>
+  <p>Klik ikon 2D Code → Setting Region → Measurement: Read Mode = DPM → Teaching → Display of Decoded → Atur Size.</p>
+</div>
+
+<div class="section" id="trend">
+  <h2>9. Trend Monitor Setting</h2>
+  <p>Menampilkan output berupa count NG dan OK. Klik Trend Monitor → Measurement → Tambahkan format seperti Barcode, OCR1-3.</p>
+  <p>Atur Judgement Range dan Display sesuai jumlah format yang dibaca.</p>
+</div>
+
+<div class="section" id="troubleshooting">
+  <h2>10. Troubleshooting</h2>
+  <ul>
+    <li><strong>Produk Terbaca NG</strong>: Cek format yang NG dan pastikan sesuai standar.</li>
+    <li><strong>Camera Tidak Stabil</strong>: Ubah shutter speed atau periksa setting Shape Search III.</li>
+    <li><strong>Capture Tidak Pas</strong>: Pastikan sensor pas dan kamera sejajar.</li>
+    <li><strong>Batch Number Tidak Stabil/Terbacanya Buruk</strong>: Atur fokus dan pencahayaan kamera.</li>
+    <li><strong>Barcode Salah</strong>: Periksa Verification String, pencahayaan, dan Code Type.</li>
+  </ul>
 </div>
 
 </body>

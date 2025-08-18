@@ -1,98 +1,517 @@
-
 <!DOCTYPE html>
 <html lang="id">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>User Manual Kamera Omron FHV7</title>
+  <meta name="theme-color" content="#0f172a" />
   <style>
-    body { font-family: sans-serif; background: #f4f4f4; padding: 20px; line-height: 1.6; }
-    .section { background: #fff; padding: 20px; border-radius: 10px; margin-bottom: 20px; box-shadow: 0 0 5px rgba(0,0,0,0.1); }
-    h1, h2 { color: #333; }
-    img { max-width: 100%; height: auto; border-radius: 8px; margin: 10px 0; }
-    a { color: #007BFF; text-decoration: none; }
-    a:hover { text-decoration: underline; }
-    .toc { background: #e8e8e8; padding: 10px; border-radius: 8px; margin-bottom: 30px; }
-    .toc a { display: block; margin: 5px 0; }
+    /* ===========
+       FOUNDATION
+       =========== */
+    :root{
+      --bg:#f6f8fb;
+      --card:#ffffff;
+      --ink:#0f172a;        /* slate-900 */
+      --ink-2:#334155;      /* slate-700 */
+      --muted:#64748b;      /* slate-500 */
+      --line:#e2e8f0;       /* slate-200 */
+      --accent:#1b64f2;     /* blue corporate-ish */
+      --accent-2:#0ea5e9;   /* cyan tint for subtle gradients */
+      --success:#16a34a;
+      --danger:#dc2626;
+      --warn:#f59e0b;
+      --radius:14px;
+      --shadow:0 6px 20px rgba(15, 23, 42, .08);
+    }
+
+    * { box-sizing: border-box; }
+    html,body { height:100%; }
+    body{
+      margin:0;
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial, "Noto Sans", "Liberation Sans", sans-serif;
+      color:var(--ink);
+      background:
+        radial-gradient(1200px 600px at 90% -10%, rgba(14,165,233,.10), transparent 60%),
+        radial-gradient(900px 500px at -10% 20%, rgba(27,100,242,.10), transparent 50%),
+        var(--bg);
+      line-height:1.65;
+    }
+
+    /* ===========
+       LAYOUT
+       =========== */
+    .site {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 24px;
+    }
+
+    .header {
+      background: linear-gradient(180deg, #fff, #f9fbff);
+      border:1px solid var(--line);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: 28px 28px;
+      margin-bottom: 24px;
+      position: relative;
+      overflow: clip;
+    }
+    .header::after{
+      content:"";
+      position:absolute; inset: -1px;
+      border-radius: var(--radius);
+      background: radial-gradient(800px 120px at 50% -30%, rgba(14,165,233,.15), transparent 60%);
+      pointer-events:none;
+    }
+
+    h1{
+      margin:0 0 6px;
+      font-size: clamp(24px, 3vw, 36px);
+      letter-spacing:.2px;
+    }
+    .subtitle{
+      margin:0;
+      color:var(--muted);
+      font-size: clamp(14px, 1.6vw, 16px);
+    }
+
+    .grid{
+      display:grid;
+      grid-template-columns: 280px 1fr;
+      gap: 20px;
+      align-items: start;
+    }
+
+    /* ===========
+       TOC (sticky sidebar)
+       =========== */
+    .toc{
+      position: sticky;
+      top: 16px;
+      background: var(--card);
+      border:1px solid var(--line);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: 16px;
+    }
+    .toc h2{
+      font-size:16px;
+      margin:0 0 8px;
+      color: var(--ink-2);
+      letter-spacing:.2px;
+    }
+    .toc a{
+      display:block;
+      padding: 10px 12px;
+      margin: 6px 0;
+      border-radius: 10px;
+      text-decoration: none;
+      color: var(--ink);
+      border:1px solid transparent;
+      transition: .2s ease;
+      font-size: 14px;
+      background: #f8fafc;
+    }
+    .toc a:hover{
+      border-color: var(--line);
+      background: #eef4ff;
+      color: var(--accent);
+    }
+
+    /* ===========
+       SECTION CARD
+       =========== */
+    .section{
+      background: var(--card);
+      border:1px solid var(--line);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: 22px;
+      margin-bottom: 20px;
+      scroll-margin-top: 12px; /* nice anchor jump */
+    }
+    .section h2{
+      display: flex; align-items: center; gap: 10px;
+      font-size: 20px;
+      margin: 0 0 8px;
+    }
+    .section h2 .tag{
+      font-size: 12px;
+      padding: 2px 8px;
+      border-radius: 999px;
+      background: #eef2ff;
+      color: var(--accent);
+      border:1px solid #dbeafe;
+    }
+    .section > p{
+      margin-top: 0; color: var(--ink-2);
+    }
+
+    /* ===========
+       STEPS (ordered)
+       =========== */
+    .steps{
+      counter-reset: step;
+      list-style: none;
+      padding: 0;
+      margin: 14px 0 8px;
+      display: grid;
+      gap: 10px;
+    }
+    .steps > li{
+      position: relative;
+      border:1px dashed var(--line);
+      border-radius: 12px;
+      padding: 14px 14px 14px 56px;
+      background: #fbfdff;
+    }
+    .steps > li::before{
+      counter-increment: step;
+      content: counter(step);
+      position: absolute;
+      left: 12px; top: 12px;
+      width: 28px; height: 28px;
+      display:grid; place-items:center;
+      border-radius: 8px;
+      background: linear-gradient(135deg, var(--accent), var(--accent-2));
+      color: #fff; font-weight: 700;
+      box-shadow: 0 3px 10px rgba(27,100,242,.25);
+      font-size: 14px;
+    }
+    .steps ul{
+      margin: 8px 0 0;
+      padding-left: 18px;
+      color: var(--ink-2);
+    }
+
+    /* ===========
+       CALLOUTS
+       =========== */
+    .note, .warn, .danger, .ok {
+      border-radius: 12px;
+      padding: 10px 12px;
+      margin-top: 10px;
+      font-size: 14px;
+      border:1px solid;
+      display: flex; gap: 8px; align-items: flex-start;
+    }
+    .note{ background:#f0f9ff; border-color:#bae6fd; color:#075985; }
+    .warn{ background:#fffbeb; border-color:#fde68a; color:#7c2d12;}
+    .ok{   background:#ecfdf5; border-color:#bbf7d0; color:#065f46;}
+    .danger{background:#fef2f2; border-color:#fecaca; color:#7f1d1d;}
+
+    /* ===========
+       MEDIA
+       =========== */
+    img{
+      max-width:100%; height:auto; border-radius: 10px;
+      border:1px solid var(--line);
+    }
+
+    /* ===========
+       VIDEO BUTTON
+       =========== */
+    .video-link{
+      display:inline-flex; align-items:center; gap:10px;
+      font-weight: 700;
+      text-decoration: none;
+      background: #111827;
+      color:#fff;
+      border-radius: 12px;
+      padding: 10px 14px;
+      margin-top: 8px;
+      box-shadow: 0 6px 18px rgba(2,6,23,.25);
+      transition: transform .06s ease, box-shadow .2s ease, background .2s ease;
+      border:1px solid rgba(255,255,255,.08);
+    }
+    .video-link:hover{ transform: translateY(-1px); background:#0b1220; }
+    .video-link svg{ width:16px; height:16px; flex:0 0 auto; }
+
+    /* ===========
+       UTIL
+       =========== */
+    .spacer{ height: 6px; }
+    .backtop{
+      margin-top: 8px;
+      display:inline-block; font-size: 13px; color: var(--muted);
+      text-decoration: none;
+    }
+    .backtop:hover{ color: var(--accent); }
+
+    /* ===========
+       RESPONSIVE
+       =========== */
+    @media (max-width: 980px){
+      .grid{ grid-template-columns: 1fr; }
+      .toc{ position: static; }
+    }
+    @media (prefers-reduced-motion: reduce){
+      .video-link{ transition: none; }
+    }
   </style>
 </head>
 <body>
+  <div class="site">
 
-<h1>User Manual Kamera Omron FHV7</h1>
+    <!-- Header -->
+    <header class="header">
+      <h1>User Manual Kamera Omron FHV7</h1>
+      <p class="subtitle">Panduan langkah demi langkah untuk operasi inspeksi visual pada lini produksi  disusun untuk standar industri kosmetik.</p>
+    </header>
 
-<div class="toc">
-  <h2>Daftar Isi</h2>
-  <a href="#kecepatan">1. Setting Kecepatan Kamera</a>
-  <a href="#focus">2. Setting Focus Kamera</a>
-  <a href="#cahaya">3. Setting Kecerahan Cahaya</a>
-  <a href="#mirror">4. Mirror Hasil Kamera</a>
-  <a href="#shape">5. Shape Search Setting III</a>
-  <a href="#barcode">6. Barcode Setting</a>
-  <a href="#ocr">7. OCR Setting</a>
-  <a href="#2dcode">8. 2D Code Setting</a>
-  <a href="#trend">9. Trend Monitor Setting</a>
-  <a href="#troubleshooting">10. Troubleshooting</a>
-</div>
+    <div class="grid">
+      <!-- TOC (ikuti daftar isi yang sama persis) -->
+      <aside class="toc" aria-label="Daftar Isi">
+        <h2>Daftar Isi</h2>
+        <a href="#camerasetting">1. Camera Image Input FHV</a>
+        <a href="#ss">2. Shape Search III Setting</a>
+        <a href="#barcode">3. Barcode Setting</a>
+        <a href="#ocr">4. OCR Setting</a>
+        <a href="#matrix">5. 2D Code Setting</a>
+        <a href="#ocrdict">6. OCR Dictionary Setting</a>
+        <a href="#trendmon">7. Trend Monitor Setting</a>
+        <a href="#backsup">8. Backround Supression Setting</a>
+        <a href="#advance">9. Advance Filter</a>
+        <a href="#poscom">10. Position Compesation</a>
+        <a href="#trouble">11. Troubleshooting</a>
+        <a href="#new">12. Create New Format</a>
+      </aside>
 
-<div class="section" id="kecepatan">
-  <h2>1. Setting Kecepatan Kamera</h2>
-  <p>Setting di range antara <strong>400-800</strong> (opsional). Jika masih belum bisa, maka bisa diluar range tersebut.</p>
-</div>
+      <!-- MAIN CONTENT -->
+      <main>
 
-<div class="section" id="focus">
-  <h2>2. Setting Focus Kamera</h2>
-  <p>Setting fokus kamera dapat dilakukan secara otomatis. Jika kurang fokus, bisa di-adjust manual.</p>
-</div>
+        <!-- 1. Camera Image Input FHV -->
+        <section class="section" id="camerasetting">
+          <h2>1. Camera Image Input FHV <span class="tag">Setup</span></h2>
+          <p>Pengaturan dasar kualitas citra: kecepatan rana, fokus, pencahayaan, dan orientasi gambar.</p>
+          <ul class="steps">
+            <li><strong>Shutter Speed:</strong> Sesuaikan dengan kecepatan line (100–400 untuk sachet, 600–900 untuk conveyor).
+              <div class="note"><span>💡</span><span>Semakin pelan objek, angka shutter lebih besar; semakin cepat objek, angka lebih kecil.</span></div>
+            </li>
+            <li><strong>Focus:</strong> Gunakan <em>Auto Focus</em>, pastikan produk diam & tepat di depan kamera.</li>
+            <li><strong>Lighting:</strong> Gunakan 4 channel (CH0–CH3). Semakin kecil nilai, semakin redup.
+              <div class="note"><span>💡</span><span>Atur bila ada pantulan cahaya pada permukaan kemasan.</span></div>
+            </li>
+            <li><strong>Mirror:</strong> Panah atas/bawah atau kiri/kanan untuk membalik orientasi sesuai kebutuhan label.</li>
+          </ul>
+          <a href="https://www.youtube.com/watch?v=xxxxxx" target="_blank" class="video-link" aria-label="Lihat Video Camera Input">
+            <svg viewBox="0 0 24 24" fill="none"><path d="M8 5v14l11-7L8 5z" fill="currentColor"/></svg>
+            Lihat Video Camera Input
+          </a>
+          <div class="spacer"></div>
+          <a class="backtop" href="#top">↑ Kembali ke atas</a>
+        </section>
 
-<div class="section" id="cahaya">
-  <h2>3. Setting Kecerahan Cahaya</h2>
-  <p>Klik Screen Adjust dan atur bagian Adjustment. Semakin besar angka, semakin terang cahaya.</p>
-</div>
+        <!-- 2. Shape Search III -->
+        <section class="section" id="ss">
+          <h2>2. Shape Search III Setting <span class="tag">Detection</span></h2>
+          <p>Mendeteksi bentuk objek/label dan menstabilkan pembacaan batch number.</p>
+          <ol class="steps">
+            <li>Buka <strong>Shape Search</strong> → pilih <em>Model</em> pada area yang ingin dideteksi.
+              <div class="note"><span>💡</span><span>Usahakan area model <em>mepet</em> dengan objek untuk akurasi.</span></div>
+            </li>
+            <li>Atur <em>Region</em> di luar area model (area pencarian).</li>
+            <li>Masuk ke <em>Measurement</em> → klik <strong>Measure</strong>.
+              <div class="warn"><span>⚠️</span><span>Pastikan <em>Column Multiple Output</em> <strong>tidak</strong> dicentang.</span></div>
+            </li>
+            <li>Gunakan hasil untuk mengecek keberadaan batch number/label.</li>
+          </ol>
+          <a href="https://www.youtube.com/watch?v=yyyyyy" target="_blank" class="video-link" aria-label="Lihat Video Shape Search">
+            <svg viewBox="0 0 24 24" fill="none"><path d="M8 5v14l11-7L8 5z" fill="currentColor"/></svg>
+            Lihat Video Shape Search
+          </a>
+          <div class="spacer"></div>
+          <a class="backtop" href="#top">↑ Kembali ke atas</a>
+        </section>
 
-<div class="section" id="mirror">
-  <h2>4. Mirror Hasil Kamera</h2>
-  <p>Panah atas/bawah: membalik arah vertikal. Panah kanan/kiri: membalik arah horizontal.</p>
-</div>
+        <!-- 3. Barcode Setting -->
+        <section class="section" id="barcode">
+          <h2>3. Barcode Setting <span class="tag">Reading</span></h2>
+          <ol class="steps">
+            <li>Klik ikon <strong>Barcode</strong>.</li>
+            <li>Masuk ke <em>Region Setting</em> → klik <strong>Edit</strong> → pilih bentuk persegi untuk area.</li>
+            <li>Posisikan region meng-cover barcode dengan presisi → klik <strong>Apply</strong> → <strong>OK</strong>.</li>
+            <li>Masuk ke <em>Measurement</em>:
+              <ul>
+                <li><strong>Teaching:</strong> <em>Code Type</em> = JAN/EAN/UPC.</li>
+                <li><strong>Display of Decoded:</strong> centang untuk menampilkan hasil pembacaan.</li>
+                <li><strong>Size:</strong> ukuran tampilan angka (standar 50).</li>
+              </ul>
+            </li>
+            <li>Isi kolom sesuai kode barcode yang berjalan di mesin.</li>
+          </ol>
+          <a href="https://www.youtube.com/watch?v=zzzzzz" target="_blank" class="video-link" aria-label="Lihat Video Barcode">
+            <svg viewBox="0 0 24 24" fill="none"><path d="M8 5v14l11-7L8 5z" fill="currentColor"/></svg>
+            Lihat Video Barcode
+          </a>
+          <div class="spacer"></div>
+          <a class="backtop" href="#top">↑ Kembali ke atas</a>
+        </section>
 
-<div class="section" id="shape">
-  <h2>5. Shape Search Setting III</h2>
-  <p>Digunakan untuk menstabilkan batch number dan mendeteksi label.</p>
-  <p>Langkah: Atur kotak Model → Region (diluar kotak model) → Measurement → Klik Measure.</p>
-</div>
+        <!-- 4. OCR Setting -->
+        <section class="section" id="ocr">
+          <h2>4. OCR Setting <span class="tag">Text</span></h2>
+          <ol class="steps">
+            <li>Klik ikon <strong>OCR</strong> → <em>Edit Region</em> → buat kotak area teks.</li>
+            <li>Masuk ke <em>Measurement</em> → <strong>Teaching</strong>.</li>
+            <li>Gunakan simbol <strong>#</strong> untuk angka dan <strong>$</strong> untuk huruf.</li>
+            <li>Masuk ke <em>Judge Condition</em> → centang <strong>OCV</strong> & isi huruf/angka sesuai pada produk.</li>
+            <li>Buka <strong>Dictionary Setting</strong> → pilih <em>Dictionary Unit</em> (OCR User Dictionary) yang diinginkan.</li>
+            <li>Masuk <strong>Dictionary Regist</strong> → klik <strong>Measure</strong> → <strong>Character Regist</strong> untuk mendaftarkan karakter ke OCR User Dictionary.</li>
+          </ol>
+          <a href="https://www.youtube.com/watch?v=aaaaaa" target="_blank" class="video-link" aria-label="Lihat Video OCR">
+            <svg viewBox="0 0 24 24" fill="none"><path d="M8 5v14l11-7L8 5z" fill="currentColor"/></svg>
+            Lihat Video OCR
+          </a>
+          <div class="spacer"></div>
+          <a class="backtop" href="#top">↑ Kembali ke atas</a>
+        </section>
 
-<div class="section" id="barcode">
-  <h2>6. Barcode Setting</h2>
-  <p>Klik ikon Barcode → Edit Region → Atur bentuk kotak → Apply → OK.</p>
-  <p>Lanjut ke Measurement: Teaching → Code Type = JAN/EAN/UPC → Ceklis Display of Decoded → Atur size angka.</p>
-</div>
+        <!-- 5. 2D Code Setting -->
+        <section class="section" id="matrix">
+          <h2>5. 2D Code Setting <span class="tag">Reading</span></h2>
+          <ol class="steps">
+            <li>Klik ikon <strong>2D Code</strong> → atur <em>Region</em>.</li>
+            <li>Masuk ke <em>Measurement</em> → set <strong>Read Mode = DPM</strong>.</li>
+            <li><strong>Teaching</strong> → aktifkan <strong>Display of Decoded</strong>.</li>
+            <li>Atur ukuran tampilan hasil decoding sesuai kebutuhan UI.</li>
+          </ol>
+          <a href="https://www.youtube.com/watch?v=bbbbbb" target="_blank" class="video-link" aria-label="Lihat Video 2D Code">
+            <svg viewBox="0 0 24 24" fill="none"><path d="M8 5v14l11-7L8 5z" fill="currentColor"/></svg>
+            Lihat Video 2D Code
+          </a>
+          <div class="spacer"></div>
+          <a class="backtop" href="#top">↑ Kembali ke atas</a>
+        </section>
 
-<div class="section" id="ocr">
-  <h2>7. OCR Setting</h2>
-  <p>Klik ikon OCR → Edit Region → Pilih persegi → Measurement → Teaching menggunakan simbol # (angka) dan $ (huruf).</p>
-  <p>Masuk ke Judge Condition → ceklis OCV → lanjut Dictionary Setting & Regist.</p>
-</div>
+        <!-- 6. OCR Dictionary Setting -->
+        <section class="section" id="ocrdict">
+          <h2>6. OCR Dictionary Setting <span class="tag">Reference</span></h2>
+          <p>Menyusun referensi karakter untuk meningkatkan akurasi OCR dan memantau kapasitas penyimpanan karakter.</p>
+          <ol class="steps">
+            <li>Buka menu <strong>Dictionary</strong>.</li>
+            <li>Hapus karakter yang tidak perlu: klik karakter → <strong>Delete</strong>.</li>
+            <li>Pastikan tidak ada karakter yang terselip di slot yang salah.</li>
+          </ol>
+          <a href="https://www.youtube.com/watch?v=cccccc" target="_blank" class="video-link" aria-label="Lihat Video OCR User Dictionary">
+            <svg viewBox="0 0 24 24" fill="none"><path d="M8 5v14l11-7L8 5z" fill="currentColor"/></svg>
+            Lihat Video OCR User Dictionary
+          </a>
+          <div class="spacer"></div>
+          <a class="backtop" href="#top">↑ Kembali ke atas</a>
+        </section>
 
-<div class="section" id="2dcode">
-  <h2>8. 2D Code Setting</h2>
-  <p>Klik ikon 2D Code → Setting Region → Measurement: Read Mode = DPM → Teaching → Display of Decoded → Atur Size.</p>
-</div>
+        <!-- 7. Trend Monitor Setting -->
+        <section class="section" id="trendmon">
+          <h2>7. Trend Monitor Setting <span class="tag">Monitoring</span></h2>
+          <p>Menampilkan jumlah OK/NG dan tren performa inspeksi secara real-time.</p>
+          <ol class="steps">
+            <li>Klik <strong>Trend Monitor</strong> → <em>Measurement</em>.</li>
+            <li>Tambahkan format yang dipantau (Barcode, OCR1–3, 2D Code, dsb.).</li>
+            <li>Atur <strong>Judgement Range</strong> dan <strong>Display</strong> sesuai jumlah format pembacaan.</li>
+            <li>Verifikasi grafik/tabel berjalan dan simpan konfigurasi.</li>
+          </ol>
+          <a href="https://www.youtube.com/watch?v=dddddd" target="_blank" class="video-link" aria-label="Lihat Video Trend Monitor">
+            <svg viewBox="0 0 24 24" fill="none"><path d="M8 5v14l11-7L8 5z" fill="currentColor"/></svg>
+            Lihat Video Trend Monitor
+          </a>
+          <div class="spacer"></div>
+          <a class="backtop" href="#top">↑ Kembali ke atas</a>
+        </section>
 
-<div class="section" id="trend">
-  <h2>9. Trend Monitor Setting</h2>
-  <p>Menampilkan output berupa count NG dan OK. Klik Trend Monitor → Measurement → Tambahkan format seperti Barcode, OCR1-3.</p>
-  <p>Atur Judgement Range dan Display sesuai jumlah format yang dibaca.</p>
-</div>
+        <!-- 8. Background Suppression -->
+        <section class="section" id="backsup">
+          <h2>8. Backround Supression Setting <span class="tag">Enhancement</span></h2>
+          <p>Mengurangi gangguan dari latar (glare/tekstur) yang mempengaruhi hasil inspeksi.</p>
+          <ol class="steps">
+            <li>Aktifkan <strong>Background Suppression</strong>.</li>
+            <li>Atur <em>Region</em> pada area yang ingin diperjelas.</li>
+            <li>Sesuaikan level filter sesuai kondisi cahaya.</li>
+            <li>Gunakan terutama saat kemasan mengilap/pantulan kuat.</li>
+          </ol>
+          <a href="https://www.youtube.com/watch?v=eeeeee" target="_blank" class="video-link" aria-label="Lihat Video Background Suppression">
+            <svg viewBox="0 0 24 24" fill="none"><path d="M8 5v14l11-7L8 5z" fill="currentColor"/></svg>
+            Lihat Video Background Suppression
+          </a>
+          <div class="spacer"></div>
+          <a class="backtop" href="#top">↑ Kembali ke atas</a>
+        </section>
 
-<div class="section" id="troubleshooting">
-  <h2>10. Troubleshooting</h2>
-  <ul>
-    <li><strong>Produk Terbaca NG</strong>: Cek format yang NG dan pastikan sesuai standar.</li>
-    <li><strong>Camera Tidak Stabil</strong>: Ubah shutter speed atau periksa setting Shape Search III.</li>
-    <li><strong>Capture Tidak Pas</strong>: Pastikan sensor pas dan kamera sejajar.</li>
-    <li><strong>Batch Number Tidak Stabil/Terbacanya Buruk</strong>: Atur fokus dan pencahayaan kamera.</li>
-    <li><strong>Barcode Salah</strong>: Periksa Verification String, pencahayaan, dan Code Type.</li>
-  </ul>
-</div>
+        <!-- 9. Advance Filter -->
+        <section class="section" id="advance">
+          <h2>9. Advance Filter <span class="tag">Enhancement</span></h2>
+          <p>Meningkatkan kualitas citra sebelum diproses oleh modul pembacaan/deteksi.</p>
+          <ol class="steps">
+            <li>Masuk ke pengaturan <strong>Advance Filter</strong>.</li>
+            <li>Klik <strong>Add</strong> untuk menambahkan filter.</li>
+            <li>Pilih filter sesuai kebutuhan (Smoothing/Sharpening/Contrast & lainnya).</li>
+          </ol>
+          <a href="https://www.youtube.com/watch?v=ffffff" target="_blank" class="video-link" aria-label="Lihat Video Advance Filter">
+            <svg viewBox="0 0 24 24" fill="none"><path d="M8 5v14l11-7L8 5z" fill="currentColor"/></svg>
+            Lihat Video Advance Filter
+          </a>
+          <div class="spacer"></div>
+          <a class="backtop" href="#top">↑ Kembali ke atas</a>
+        </section>
 
+        <!-- 10. Position Compensation -->
+        <section class="section" id="poscom">
+          <h2>10. Position Compesation <span class="tag">Alignment</span></h2>
+          <p>Mengoreksi pergeseran produk dan dapat memutar orientasi gambar 0–90° bila diperlukan.</p>
+          <ol class="steps">
+            <li>Aktifkan <strong>Position Compensation</strong>.</li>
+            <li>Untuk penggunaan normal: tidak perlu set region tambahan.</li>
+            <li>Untuk rotasi gambar: pada <strong>Method</strong> pilih <strong>Calculation</strong>, ubah <strong>Position 0</strong> ke nilai 0–90.</li>
+          </ol>
+          <a href="https://www.youtube.com/watch?v=gggggg" target="_blank" class="video-link" aria-label="Lihat Video Position Compensation">
+            <svg viewBox="0 0 24 24" fill="none"><path d="M8 5v14l11-7L8 5z" fill="currentColor"/></svg>
+            Lihat Video Position Compensation
+          </a>
+          <div class="spacer"></div>
+          <a class="backtop" href="#top">↑ Kembali ke atas</a>
+        </section>
+
+        <!-- 11. Troubleshooting -->
+        <section class="section" id="trouble">
+          <h2>11. Troubleshooting <span class="tag">Support</span></h2>
+          <ul class="steps">
+            <li><strong>Produk terbaca NG:</strong> periksa setting format & pencahayaan.</li>
+            <li><strong>Kamera tidak stabil:</strong> sesuaikan shutter speed atau konfigurasi Shape Search.</li>
+            <li><strong>Capture tidak pas:</strong> cek sensor trigger & posisi kamera.</li>
+            <li><strong>Batch number tidak stabil:</strong> periksa fokus & pengaturan lampu.</li>
+            <li><strong>Barcode salah:</strong> periksa Code Type, pencahayaan, dan verification string.</li>
+          </ul>
+          <a href="https://www.youtube.com/watch?v=hhhhhh" target="_blank" class="video-link" aria-label="Lihat Video Troubleshooting">
+            <svg viewBox="0 0 24 24" fill="none"><path d="M8 5v14l11-7L8 5z" fill="currentColor"/></svg>
+            Lihat Video Troubleshooting
+          </a>
+          <div class="spacer"></div>
+          <a class="backtop" href="#top">↑ Kembali ke atas</a>
+        </section>
+
+        <!-- 12. Create New Format -->
+        <section class="section" id="new">
+          <h2>12. Create New Format <span class="tag">Project</span></h2>
+          <ol class="steps">
+            <li>Buka <strong>Scene Switch</strong>.</li>
+            <li>Klik <strong>Add</strong>.</li>
+            <li>Pilih <strong>Add a New Scene</strong>.</li>
+            <li>Klik <strong>OK</strong>.</li>
+          </ol>
+          <a href="https://www.youtube.com/watch?v=iiiiii" target="_blank" class="video-link" aria-label="Lihat Video Create New Format">
+            <svg viewBox="0 0 24 24" fill="none"><path d="M8 5v14l11-7L8 5z" fill="currentColor"/></svg>
+            Lihat Video Create New Format
+          </a>
+          <div class="spacer"></div>
+          <a class="backtop" href="#top">↑ Kembali ke atas</a>
+        </section>
+
+      </main>
+    </div>
+  </div>
+
+  <!-- Optional named anchor for "back to top" -->
+  <div id="top" hidden></div>
 </body>
 </html>
